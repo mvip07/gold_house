@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Debt Page</title>
+    <title>Home Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -34,35 +34,8 @@
                 class="block py-2 text-lg font-medium bg-gray-700 dark:bg-gray-800 rounded hover:bg-gray-600 transition mb-2">Calculator</a>
         </div>
     </div>
-    <main class="flex-1 pt-16 pb-20 flex flex-col items-center bg-gray-50 dark:bg-[#0f0f12]">
-        <div class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400 mt-6 mb-4">Client Debt Management</div>
-        <div class="w-full max-w-4xl px-4">
-            <div class="my-4 flex justify-end gap-4">
-                <a href="client_page.html"
-                    class="bg-sky-700 text-white px-6 py-2 rounded-lg hover:bg-sky-800 transition flex items-center">
-                    <i class="fas fa-arrow-left mr-2"></i> Back
-                </a>
-                <a href="client_debt_create_page.html"
-                    class="bg-blue-600 dark:bg-blue-700 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700 dark:hover:bg-blue-800 transition duration-200 flex items-center">
-                    <i class="fas fa-plus mr-2"></i> Add Debt
-                </a>
-            </div>
-            <div class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                Full Name: <span id="fullName" class="text-indigo-600 dark:text-indigo-400"></span>
-            </div>
-            <div class="text-lg font-semibold text-gray-700 dark:text-gray-300 my-2">
-                Phone Number: <span id="phoneNumber" class="text-indigo-600 dark:text-indigo-400"></span>
-            </div>
-            <div class="text-lg font-semibold text-gray-700 dark:text-gray-300">
-                Total Debt: <span id="totalDebt" class="text-indigo-600 dark:text-indigo-400"></span>
-            </div>
-            <div class="mt-5 mx-2 flex justify-start">
-
-            </div>
-            <div id="clientDebtPage"
-                class="grid grid-cols-1 md:grid-cols-2 gap-4 m-2 overflow-y-auto max-h-[calc(100vh-440px)]">
-            </div>
-        </div>
+    <main class="flex-1 pt-16 pb-20 flex items-center justify-center">
+        <div class="text-3xl font-medium text-indigo-600 dark:text-indigo-400">Home Page</div>
     </main>
     <footer
         class="fixed bottom-0 w-full bg-gray-800 dark:bg-gray-700 text-white p-4 flex justify-around items-center z-10 shadow-inner">
@@ -76,7 +49,6 @@
         </a>
     </footer>
     <script src="scripts.js"></script>
-    <script src="services.js"></script>
 </body>
 
 </html>

@@ -1,3 +1,7 @@
+if (localStorage.getItem("token") && localStorage.getItem("dealer")) {
+    window.location.href = "index.html";
+}
+
 document.getElementById("loginForm").addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -22,9 +26,10 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
             return res.json();
         })
         .then((data) => {
-            localStorage.setItem("token", data.data?.token || "");
-            localStorage.setItem("user", JSON.stringify(data.data?.user || {}));
-            window.location.href = "home_page.html";
+            console.log(data)
+            localStorage.setItem("token", data.token || "");
+            localStorage.setItem("dealer", JSON.stringify(data.dealer || {}));
+            window.location.href = "index.html";
         })
         .catch((err) => {
             console.error(err);

@@ -4,118 +4,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client create page</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Client Create Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="dark:bg-[#0f0f12] text-black dark:text-white">
-    <div id="mySidenav" class="sidenav bg-white dark:bg-gray-800 text-black dark:text-white text-center">
-        <div class="text-2xl font-medium">Menu</div>
+<body class="dark:bg-[#0f0f12] text-gray-800 dark:text-gray-200 min-h-screen flex flex-col">
+    <div id="mySidenav"
+        class="sidenav fixed left-0 top-0 w-64 bg-gray-800 dark:bg-gray-900 text-white h-full transform -translate-x-full transition-transform duration-300 ease-in-out z-20">
+        <div class="text-2xl font-medium p-4">Menu</div>
         <div class="mt-20 px-4 text-center">
-            <div class="h-1 w-32 bg-gray-200 dark:bg-gray-500 mx-auto"></div>
+            <div class="h-1 w-24 bg-gray-600 dark:bg-gray-500 mx-auto mb-4"></div>
             <a href="folder_page.html"
-                class="flex w-full justify-center my-4 p-2 text-xl font-medium bg-gray-300 dark:bg-gray-500 shadow-md shadow-gray-500 focus:shadow-none transition">Folder</a>
+                class="block py-2 text-lg font-medium bg-gray-700 dark:bg-gray-800 rounded hover:bg-gray-600 transition mb-2">Folder</a>
             <a href="client_page.html"
-                class="flex w-full justify-center my-4 p-2 text-xl font-medium bg-gray-300 dark:bg-gray-500 pointer-events-none">Client</a>
+                class="block py-2 text-lg font-medium bg-gray-700 dark:bg-gray-800 rounded hover:bg-gray-600 transition pointer-events-none mb-2">Client</a>
             <a href="calculator_page.html"
-                class="flex w-full justify-center my-4 p-2 text-xl font-medium bg-gray-300 dark:bg-gray-500 shadow-md shadow-gray-500 focus:shadow-none transition">Calculator</a>
+                class="block py-2 text-lg font-medium bg-gray-700 dark:bg-gray-800 rounded hover:bg-gray-600 transition mb-2">Calculator</a>
         </div>
     </div>
-    <div id="container" class="container flex flex-col justify-between h-dvh">
-    <nav class="fixed w-full p-5 flex z-10 justify-between items-center bg-white dark:bg-[#0f0f12]">
-        <div onclick="openNav()">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
-        </div>
-        <div class="text-2xl w-full px-3">Gold House</div>
-        <button id="theme-toggle" class="">
-            <svg class="dark:hidden block" width="24" height="24" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24">
-                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-            </svg>
-            <svg class="dark:block hidden" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="5" />
-                <line x1="12" y1="1" x2="12" y2="3" />
-                <line x1="12" y1="21" x2="12" y2="23" />
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                <line x1="1" y1="12" x2="3" y2="12" />
-                <line x1="21" y1="12" x2="23" y2="12" />
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-            </svg>
-        </button>
-    </nav>
-    <main class="pt-20 h-dvh text-center flex-1 max-h-[calc(100vh-72px)]">
-        <div class="mt-14">
-            <div class="text-3xl font-medium text-purple-700 dark:text-purple-300">Client Create Page</div>
-            <form class="mt-5 mx-4">
-                <div
-                    class="flex items-center rounded px-3 py-3 my-2 focus-within:border-purple-700 dark:focus-within:border-purple-300 border-2 bg-white dark:bg-gray-800">
-                    <span class="text-gray-500 dark:text-gray-300 mr-3">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12zm0 2.2c-3.2 0-9.6 1.6-9.6 4.9v2.2h19.2v-2.2c0-3.3-6.4-4.9-9.6-4.9z" />
-                        </svg>
-                    </span>
-                    <input type="text" placeholder="Full Name" name="fullName" required
-                        class="w-full bg-transparent outline-none text-gray-800 dark:text-white" />
-                </div>
-                <div
-                    class="flex items-center rounded px-3 py-3 my-2 focus-within:border-purple-700 dark:focus-within:border-purple-300 border-2 bg-white dark:bg-gray-800">
-                    <span class="text-gray-500 dark:text-gray-400 mr-3">
-                        <svg width="20" height="20" viewBox="0 0 90 90" fill="currentColor">
-                            <path d="M84.96,70.237c-0.167-1.032-0.814-1.914-1.783-2.438l-14.335-8.446l-0.118-0.066
-		c-0.579-0.297-1.249-0.45-1.937-0.45c-1.201,0-2.348,0.455-3.144,1.253l-4.231,4.233c-0.181,0.172-0.771,0.421-0.95,0.43
-		c-0.049-0.004-4.923-0.355-13.896-9.329c-8.957-8.955-9.337-13.844-9.34-13.844c0.005-0.25,0.251-0.838,0.426-1.02l3.608-3.607
-		c1.271-1.274,1.652-3.386,0.898-5.022L32.19,16.938c-0.579-1.192-1.704-1.928-2.952-1.928c-0.883,0-1.735,0.366-2.401,1.031
-		l-9.835,9.813c-0.943,0.938-1.755,2.578-1.932,3.898c-0.086,0.631-1.831,15.693,18.819,36.346
-		C51.42,83.627,65.09,84.989,68.865,84.989l0,0c0.812,0,1.285-0.058,1.376-0.071c1.316-0.176,2.954-0.986,3.891-1.925l9.827-9.826
-		C84.761,72.361,85.127,71.296,84.96,70.237z" />
-                        </svg>
-                    </span>
-                    <input type="tel" placeholder="Phone Number" required
-                        class="w-full bg-transparent outline-none text-gray-800 dark:text-white" />
-                </div>
-                <button type="submit"
-                    class="w-full bg-purple-700 dark:bg-purple-800 text-white py-3 rounded my-2 hover:bg-purple-600 dark:hover:bg-purple-700 transition-colors">
-                    Submit
-                </button>
-                <a href="client_page.html"
-                    class="flex w-full justify-center text-white py-3 rounded my-2 bg-sky-800">Back</a>
-            </form>
-        </div>
-    </main>
-    <footer class="w-full flex justify-around bg-gray-300 dark:bg-gray-700 p-2">
-        <div class="text-center">
-            <a class="w-full h-auto flex px-5 py-1 focus:bg-purple-500/30 dark:focus:bg-purple-800 rounded-2xl"
-                href="home_page.html">
-                <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
-                    stroke-width="2">
-                    <path d="M3 9L12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                    <polyline points="9 22 9 12 15 12 15 22" />
-                </svg>
+    <div id="container" class="flex-1 flex flex-col">
+        <nav
+            class="fixed top-0 w-full p-4 flex justify-between items-center bg-gray-800 dark:bg-[#0f0f12] text-white z-10 shadow-md">
+            <button onclick="openNav()" class="focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            <h1 class="text-2xl font-semibold text-center flex-1">Gold House</h1>
+            <button id="theme-toggle" class="focus:outline-none">
+                <i class="fas fa-sun text-xl dark:hidden"></i>
+                <i class="fas fa-moon hidden dark:block text-xl"></i>
+            </button>
+        </nav>
+        <main class="flex-1 pt-16 pb-20 flex flex-col justify-center items-center bg-gray-50 dark:bg-[#0f0f12]">
+            <div class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400 mt-6 text-center">Create New Client
+            </div>
+            <div class="w-full max-w-md mx-auto px-4 mt-8">
+                <form class="space-y-4">
+                    <div
+                        class="flex items-center rounded-lg px-4 py-3 border-2 border-gray-300 dark:border-gray-700 focus-within:border-indigo-600 dark:focus-within:border-indigo-400 bg-white dark:bg-gray-800">
+                        <span class="text-gray-500 dark:text-gray-400 mr-3">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <input type="text" id="fullName" name="fullName" placeholder="Full Name" required
+                            class="w-full bg-transparent outline-none text-gray-800 dark:text-gray-200">
+                    </div>
+                    <div
+                        class="flex items-center rounded-lg px-4 py-3 border-2 border-gray-300 dark:border-gray-700 focus-within:border-indigo-600 dark:focus-within:border-indigo-400 bg-white dark:bg-gray-800">
+                        <span class="text-gray-500 dark:text-gray-400 mr-3">
+                            <i class="fas fa-phone"></i>
+                        </span>
+                        <input type="tel" id="phoneNumber" placeholder="Phone Number" required
+                            class="w-full bg-transparent outline-none text-gray-800 dark:text-gray-200">
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-indigo-600 dark:bg-indigo-700 text-white py-3 rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-800 transition-colors">
+                        <i class="fas fa-save mr-2"></i> Submit
+                    </button>
+                    <a href="client_page.html"
+                        class="flex w-full justify-center bg-sky-700 text-white py-3 rounded-lg hover:bg-sky-800 transition-colors">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </a>
+                </form>
+            </div>
+        </main>
+        <footer
+            class="w-full bg-gray-800 dark:bg-gray-700 text-white p-4 flex justify-around items-center z-10 shadow-inner">
+            <a href="home_page.html" class="flex flex-col items-center hover:text-indigo-400">
+                <i class="fas fa-home text-xl"></i>
+                <span>Home</span>
             </a>
-            Home
-        </div>
-        <div class="text-center">
-            <a class="w-full h-auto flex px-5 py-1 focus:bg-purple-500/30 dark:focus:bg-purple-800 rounded-2xl"
-                href="login_page.html">
-                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
-                </svg>
+            <a href="login_page.html" class="flex flex-col items-center hover:text-indigo-400">
+                <i class="fas fa-sign-out-alt text-xl"></i>
+                <span>Logout</span>
             </a>
-            Logout
-        </div>
-    </footer>
+        </footer>
     </div>
+    <script src="scripts.js"></script>
+    <script src="./services.js"></script>
 </body>
-<script src="scripts.js"></script>
 
 </html>

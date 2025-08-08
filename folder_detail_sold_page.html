@@ -4,112 +4,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Folder detail page</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Folder Detail Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="dark:bg-[#0f0f12] text-black dark:text-white">
-    <div id="mySidenav" class="sidenav bg-white dark:bg-gray-800 text-black dark:text-white text-center">
-        <div class="text-2xl font-medium">Menu</div>
+<body class="dark:bg-[#0f0f12] text-gray-800 dark:text-gray-200 min-h-screen flex flex-col">
+    <div id="mySidenav"
+        class="sidenav fixed left-0 top-0 w-64 bg-gray-800 dark:bg-gray-900 text-white h-full transform -translate-x-full transition-transform duration-300 ease-in-out z-20">
+        <div class="text-2xl font-medium p-4">Menu</div>
         <div class="mt-20 px-4 text-center">
-            <div class="h-1 w-32 bg-gray-200 dark:bg-gray-500 mx-auto"></div>
+            <div class="h-1 w-24 bg-gray-600 dark:bg-gray-500 mx-auto mb-4"></div>
             <a href="folder_page.html"
-                class="flex w-full justify-center my-4 p-2 text-xl font-medium bg-gray-300 dark:bg-gray-500 pointer-events-none">Folder</a>
+                class="block py-2 text-lg font-medium bg-gray-700 dark:bg-gray-800 rounded hover:bg-gray-600 transition pointer-events-none mb-2">Folder</a>
             <a href="client_page.html"
-                class="flex w-full justify-center my-4 p-2 text-xl font-medium bg-gray-300 dark:bg-gray-500 shadow-md shadow-gray-500 focus:shadow-none transition">Client</a>
+                class="block py-2 text-lg font-medium bg-gray-700 dark:bg-gray-800 rounded hover:bg-gray-600 transition mb-2">Client</a>
             <a href="calculator_page.html"
-                class="flex w-full justify-center my-4 p-2 text-xl font-medium bg-gray-300 dark:bg-gray-500 shadow-md shadow-gray-500 focus:shadow-none transition">Calculator</a>
+                class="block py-2 text-lg font-medium bg-gray-700 dark:bg-gray-800 rounded hover:bg-gray-600 transition mb-2">Calculator</a>
         </div>
     </div>
-    <div id="container" class="container flex flex-col justify-between h-dvh">
-        <nav class="fixed w-full p-5 flex z-10 justify-between items-center bg-white dark:bg-[#0f0f12]">
-            <div onclick="openNav()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="3" y1="6" x2="21" y2="6" />
-                    <line x1="3" y1="12" x2="21" y2="12" />
-                    <line x1="3" y1="18" x2="21" y2="18" />
-                </svg>
-            </div>
-            <div class="text-2xl w-full px-3">Gold House</div>
-            <button id="theme-toggle" class="">
-                <svg class="dark:hidden block" width="24" height="24" stroke="currentColor" stroke-width="2"
-                    viewBox="0 0 24 24">
-                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-                </svg>
-                <svg class="dark:block hidden" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
-                    viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="5" />
-                    <line x1="12" y1="1" x2="12" y2="3" />
-                    <line x1="12" y1="21" x2="12" y2="23" />
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                    <line x1="1" y1="12" x2="3" y2="12" />
-                    <line x1="21" y1="12" x2="23" y2="12" />
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                </svg>
+    <div id="container" class="flex-1 flex flex-col">
+        <nav
+            class="fixed top-0 w-full p-4 flex justify-between items-center bg-gray-800 dark:bg-[#0f0f12] text-white z-10 shadow-md">
+            <button onclick="openNav()" class="focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            <h1 class="text-2xl font-semibold text-center flex-1">Gold House</h1>
+            <button id="theme-toggle" class="focus:outline-none">
+                <i class="fas fa-sun text-xl dark:hidden"></i>
+                <i class="fas fa-moon hidden dark:block text-xl"></i>
             </button>
         </nav>
-        <main class="pt-[72px] text-center flex-1 max-h-[calc(100vh-72px)]">
-            <div class="text-3xl font-medium mt-5 text-purple-700 dark:text-purple-300">Folder Detail Page</div>
-            <div class="my-4">
+        <main class="flex-1 pt-16 pb-20 flex flex-col items-center bg-gray-50 dark:bg-[#0f0f12] mb-4">
+            <div class="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mt-6 text-center">Folder Details</div>
+            <div class="my-6 w-full max-w-4xl flex justify-end gap-4 px-4">
+                <a href="folder_detail_page.html"
+                    class="bg-sky-700 text-white px-4 py-2 rounded-lg hover:bg-sky-800 transition flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i> Back
+                </a>
             </div>
-            <div class="text-xl font-medium my-2">Product Sold Total Count: <span>0</span></div>
-            <div class="grid grid-cols-3 justify-between">
-                <div class="font-medium">DR count - <span>0</span></div>
-                <div class="font-medium">DR count - <span>0</span></div>
-                <div class="font-medium">DR count - <span>0</span></div>
-                <div class="font-medium">DR gramm - <span>0</span></div>
-                <div class="font-medium">DR gramm - <span>0</span></div>
-                <div class="font-medium">DR gramm - <span>0</span></div>
-                <div class="font-medium">DR price - <span>0</span></div>
-                <div class="font-medium">DR price - <span>0</span></div>
-                <div class="font-medium">DR price - <span>0</span></div>
+            <div class="w-full max-w-4xl mx-auto px-4">
+                <div class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">
+                    Product Total Count:
+                    <span id="soldTotalCount" class="text-indigo-600 dark:text-indigo-400">0</span>
+                </div>
+                <div id="statsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                </div>
+                <form id="productForm"
+                    class="flex items-center rounded-lg px-4 py-3 border-2 border-gray-300 dark:border-gray-700 focus-within:border-indigo-600 dark:focus-within:border-indigo-400 bg-white dark:bg-gray-800 w-full max-w-md mx-auto mb-4">
+                    <span class="text-gray-500 dark:text-gray-400 mr-3">
+                        <i class="fas fa-barcode"></i>
+                    </span>
+                    <input type="text" placeholder="Enter Product ID" required id="productId"
+                        class="w-full bg-transparent outline-none text-gray-800 dark:text-gray-200">
+                    <span
+                        class="absolute left-4 px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 -top-2 text-xs">ID</span>
+                </form>
+                <div id="productList" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                </div>
             </div>
-            <a href="folder_page.html" class="flex justify-center text-white py-3 rounded m-2 bg-sky-800">Back</a>
-            <form
-                class="flex relative items-center rounded px-3 py-3 m-3 focus-within:border-purple-700 dark:focus-within:border-purple-300 border-2">
-                <span class="text-gray-500 dark:text-gray-100 mr-3">
-                    <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
-                        <rect width="16" height="16" fill="none" />
-                        <path
-                            d="M13,1H3v2h10V1z M15,4H1C0.45,4,0,4.45,0,5v5c0,0.55,0.45,1,1,1h2v4h10v-4h2c0.55,0,1-0.45,1-1V5C16,4.45,15.55,4,15,4z M11,13H5V9h6V13z M14,7c-0.552,0-1-0.448-1-1s0.448-1,1-1s1,0.448,1,1S14.552,7,14,7z" />
-                    </svg>
-                </span>
-                <input type="tel" placeholder="Enter Product ID" required
-                    class="w-full bg-transparent outline-none text-gray-800 dark:text-white"/>
-                <span
-                    class="absolute left-4 px-3 bg-white dark:bg-[#0f0f12] text-gray-500 dark:text-gray-400 -top-2.5 text-xs">ID</span>
-            </form>
         </main>
-        <footer class="w-full flex justify-around bg-gray-300 dark:bg-gray-700 p-2">
-            <div class="text-center">
-                <a class="w-full h-auto flex px-5 py-1 focus:bg-purple-500/30 dark:focus:bg-purple-800 rounded-2xl"
-                    href="home_page.html">
-                    <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
-                        stroke-width="2">
-                        <path d="M3 9L12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                        <polyline points="9 22 9 12 15 12 15 22" />
-                    </svg>
-                </a>
-                Home
-            </div>
-            <div class="text-center">
-                <a class="w-full h-auto flex px-5 py-1 focus:bg-purple-500/30 dark:focus:bg-purple-800 rounded-2xl"
-                    href="login_page.html">
-                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
-                    </svg>
-                </a>
-                Logout
-            </div>
-
+        <footer
+            class="fixed bottom-0 w-full bg-gray-800 dark:bg-gray-700 text-white p-4 flex justify-around items-center z-10 shadow-inner">
+            <a href="home_page.html" class="flex flex-col items-center hover:text-indigo-400">
+                <i class="fas fa-home text-xl"></i>
+                <span>Home</span>
+            </a>
+            <a href="login_page.html" class="flex flex-col items-center hover:text-indigo-400">
+                <i class="fas fa-sign-out-alt text-xl"></i>
+                <span>Logout</span>
+            </a>
         </footer>
     </div>
+    <script src="scripts.js"></script>
+    <script src="services.js"></script>
 </body>
-
-<script src="scripts.js"></script>
 
 </html>

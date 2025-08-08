@@ -1,41 +1,21 @@
-tailwind.config = {
-  darkMode: 'class',
-};
-
-const toggleBtn = document.getElementById('theme-toggle');
-const html = document.documentElement;
-if (localStorage.theme === 'dark') {
-  html.classList.add('dark');
-  html.classList.remove('light');
-}
-toggleBtn.addEventListener('click', () => {
-  const isDark = html.classList.toggle('dark');
-  localStorage.theme = isDark ? 'dark' : 'light';
-});
-
-let initialHeight = window.innerHeight;
-
-window.addEventListener("resize", () => {
-  const currentHeight = window.innerHeight;
-  const footer = document.querySelector("footer");
-  if (!footer) return;
-  if (currentHeight < initialHeight - 100) {
-    footer.style.display = "none";
-  } else {
-    footer.style.display = "flex";
-  }
-});
-
 function openNav() {
-  document.getElementById("mySidenav").style.width = "85%";
-  document.getElementById("container").style.opacity = "0.3";
-  setTimeout(() => {
-    document.getElementById("container").setAttribute("onclick", "closeNav()");
-  },);
+    document.getElementById("mySidenav").classList.add("translate-x-0");
+    document.getElementById("mySidenav").classList.remove("-translate-x-full");
 }
 
 function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("container").style.opacity = "1";
-  document.getElementById("container").removeAttribute("onclick");
+    document.getElementById("mySidenav").classList.remove("translate-x-0");
+    document.getElementById("mySidenav").classList.add("-translate-x-full");
 }
+
+document.addEventListener("click", function (event) {
+    const sidenav = document.getElementById("mySidenav");
+    const toggleButton = document.querySelector("button[onclick='openNav()']");
+    if (!sidenav.contains(event.target) && !toggleButton.contains(event.target)) {
+        closeNav();
+    }
+});
+
+document.getElementById("theme-toggle").addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+});
