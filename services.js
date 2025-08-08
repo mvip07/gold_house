@@ -517,9 +517,7 @@ const loadCalculator = async (event) => {
         <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
             <div class="flex items-center justify-between">
                 <div class="text-lg font-semibold text-gray-800 dark:text-gray-200">${product.title || 'N/A'}</div>
-                <button class="text-red-500 hover:text-red-700" onclick="deleteProduct(${product.id || 0})">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
+                
             </div>
             <div class="grid grid-cols-2 gap-x-4 gap-y-1 mt-2">
                 <div class="text-sm text-gray-500 dark:text-gray-400">ID: ${product.qr_id || 'N/A'}</div>
