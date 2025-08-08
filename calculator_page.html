@@ -31,18 +31,28 @@
             <a href="client_page.html"
                 class="block py-2 text-lg font-medium bg-gray-700 dark:bg-gray-800 rounded hover:bg-gray-600 transition mb-2">Client</a>
             <a href="calculator_page.html"
-                class="block py-2 text-lg font-medium bg-gray-700 dark:bg-gray-800 rounded hover:bg-gray-600 transition pointer-events-none mb-2">Calculator</a>
+                class="block py-2 text-lg font-medium bg-gray-700 dark:bg-gray-800 rounded hover:bg-gray-600 transition mb-2">Calculator</a>
         </div>
     </div>
     <main class="flex-1 pt-16 pb-20 flex flex-col items-center bg-gray-50 dark:bg-[#0f0f12]">
         <div class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400 mt-6 text-center">Calculator
         </div>
-        
-        <div class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">
-                Total Products: <span id="productTotalCount" class="text-indigo-600 dark:text-indigo-400">0</span>
+
+        <div class="grid gap-4 grid-cols-3 max-w-4xl px-4 mt-4">
+            <div
+                class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                Total Count: <span id="totalCount" class="text-indigo-600 dark:text-indigo-400">0</span>
             </div>
-        <div id="statsContainer"
-            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-4xl px-4 mb-6">
+            <div
+                class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                Total Gram: <span id="totalGramm" class="text-indigo-600 dark:text-indigo-400">0</span>
+            </div>
+            <div
+                class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                Total Price: <span id="totalPrice" class="text-indigo-600 dark:text-indigo-400">0</span>
+            </div>
+        </div>
+        <div id="statsContainer" class="grid grid-cols-3 gap-4 w-full max-w-4xl px-4 mb-6">
         </div>
         <div class="w-full max-w-4xl mx-auto px-4">
             <form id="calculatorForm"
@@ -60,7 +70,7 @@
         </div>
     </main>
     <footer
-        class="w-full bg-gray-800 dark:bg-gray-700 text-white p-4 flex justify-around items-center z-10 shadow-inner">
+        class="fixed bottom-0 w-full bg-gray-800 dark:bg-gray-700 text-white p-4 flex justify-around items-center z-10 shadow-inner">
         <a href="home_page.html" class="flex flex-col items-center hover:text-indigo-400">
             <i class="fas fa-home text-xl"></i>
             <span>Home</span>

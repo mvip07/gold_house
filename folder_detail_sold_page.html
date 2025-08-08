@@ -44,11 +44,21 @@
                 </a>
             </div>
             <div class="w-full max-w-4xl mx-auto px-4">
-                <div class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">
-                    Product Total Count:
-                    <span id="soldTotalCount" class="text-indigo-600 dark:text-indigo-400">0</span>
+                <div class="grid gap-4 grid-cols-3">
+                    <div
+                        class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                        Total Count: <span id="totalCount" class="text-indigo-600 dark:text-indigo-400">0</span>
+                    </div>
+                    <div
+                        class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                        Total Gram: <span id="totalGramm" class="text-indigo-600 dark:text-indigo-400">0</span>
+                    </div>
+                    <div
+                        class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                        Total Price: <span id="totalPrice" class="text-indigo-600 dark:text-indigo-400">0</span>
+                    </div>
                 </div>
-                <div id="statsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div id="statsContainer" class="grid grid-cols-3 gap-4 mb-6">
                 </div>
                 <form id="productForm"
                     class="flex items-center rounded-lg px-4 py-3 border-2 border-gray-300 dark:border-gray-700 focus-within:border-indigo-600 dark:focus-within:border-indigo-400 bg-white dark:bg-gray-800 w-full max-w-md mx-auto mb-4">
@@ -60,7 +70,7 @@
                     <span
                         class="absolute left-4 px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 -top-2 text-xs">ID</span>
                 </form>
-                <div id="productList" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div id="productList" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 </div>
             </div>
         </main>

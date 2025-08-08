@@ -140,13 +140,17 @@ const loadFolderDetails = async () => {
     try {
         const productsResponse = await fetchGet(`http://185.105.91.97:8080/api/product/list/${folderId}`, token)
         const products = productsResponse?.result || [];
-        const totalCount = document.querySelector('#soldTotalCount');
+        const totalCount = document.querySelector('#totalCount');
+        const totalGramm = document.querySelector('#totalGramm');
+        const totalPrice = document.querySelector('#totalPrice');
+        totalGramm.textContent = "";
+        totalPrice.textContent = "";
         totalCount.textContent = products.length;
 
         const statsContainer = document.getElementById('statsContainer');
         statsContainer.innerHTML = '';
 
-        Object.entries(productsResponse.data).forEach(([key, value]) => {
+        Object.entries(productsResponse?.data)?.forEach(([key, value]) => {
             const statDiv = document.createElement('div');
             statDiv.className = 'bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow';
             statDiv.innerHTML = `
@@ -157,18 +161,23 @@ const loadFolderDetails = async () => {
                     <span>${value}</span>
                 </div>
             `;
+            key?.includes("gram") ? totalGramm.textContent = (Number(totalGramm.textContent) + value).toFixed(2) : ""
+            key?.includes("price") ? totalPrice.textContent = (Number(totalPrice.textContent) + value).toFixed(2) : ""
             statsContainer.appendChild(statDiv);
         });
 
         const productList = document.getElementById('productList');
         productList.innerHTML = '';
-        products?.forEach((pro) => {
+        products?.forEach((pro, idx) => {
             const typeDiv = document.createElement('div');
             typeDiv.className = 'col-span-1 md:col-span-2 lg:col-span-1';
             typeDiv.innerHTML = `
                 <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
                     <div class="flex items-center justify-between">
-                        <div class="text-lg font-semibold text-gray-800 dark:text-gray-200">${pro.title}</div>
+                        <div class="flex items-center">
+                            <p class="me-2 text-sm">${idx + 1}.</p>
+                            <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200">${pro.title}</h4>
+                        </div>
                         <button class="text-red-500 hover:text-red-700" onclick="deleteProduct(${pro.id})">
                             <i class="fas fa-trash-alt"></i>
                         </button>
@@ -185,7 +194,6 @@ const loadFolderDetails = async () => {
                 </div>
             `;
             productList.appendChild(typeDiv);
-
         });
 
         const productForm = document.querySelector('form');
@@ -217,35 +225,43 @@ const loadFolderDetailsSold = async () => {
     try {
         const soldProductsRes = await fetchGet(`http://185.105.91.97:8080/api/product/list/sold/${folderId}`, token)
         const soldProducts = soldProductsRes?.result || [];
-        const totalCount = document.querySelector('#soldTotalCount');
+        const totalCount = document.querySelector('#totalCount');
+        const totalGramm = document.querySelector('#totalGramm');
+        const totalPrice = document.querySelector('#totalPrice');
+        totalGramm.textContent = "";
+        totalPrice.textContent = "";
         totalCount.textContent = soldProducts.length;
+        const grammSum = soldProducts.reduce((sum, p) => sum + (p.gramm || 0), 0);
+        totalGramm.textContent = Number(grammSum.toFixed(2));
+        const priceSum = soldProducts.reduce((sum, p) => sum + (p.price || 0), 0);
+        totalPrice.textContent = Number(priceSum.toFixed(2));
 
         const statsContainer = document.getElementById('statsContainer');
         statsContainer.innerHTML = '';
-
         Object.entries(soldProductsRes.data).forEach(([key, value]) => {
-            const statDiv = document.createElement('div');
-            statDiv.className = 'bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow';
-            statDiv.innerHTML = `
-                <div class="font-medium text-gray-600 dark:text-gray-400 flex items-center">
+            statsContainer.innerHTML += `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                    <div class="font-medium text-gray-600 dark:text-gray-400 flex items-center">
                     ${key}
-                </div>
-                <div class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mt-2">
+                    </div>
+                    <div class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mt-2">
                     <span>${value}</span>
+                    </div>
                 </div>
-                `;
-            statsContainer.appendChild(statDiv);
+            `;
         });
 
         const productList = document.getElementById('productList');
         productList.innerHTML = '';
-        soldProducts?.forEach((pro) => {
-            const typeDiv = document.createElement('div');
-            typeDiv.className = 'col-span-1 md:col-span-2 lg:col-span-1';
-            typeDiv.innerHTML = `
+
+        soldProducts?.forEach((pro, idx) => {
+            productList.innerHTML = `
                 <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
                     <div class="flex items-center justify-between">
-                        <div class="text-lg font-semibold text-gray-800 dark:text-gray-200">${pro.title}</div>
+                        <div class="flex items-center">
+                            <p class="me-2 text-sm">${idx + 1}.</p>
+                            <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200">${pro.title}</h4>
+                        </div>
                         <button class="text-red-500 hover:text-red-700" onclick="deleteProduct(${pro.id})">
                             <i class="fas fa-trash-alt"></i>
                         </button>
@@ -261,14 +277,12 @@ const loadFolderDetailsSold = async () => {
                     </div>      
                 </div>
             `;
-            productList.appendChild(typeDiv);
-
         });
 
         const productForm = document.querySelector('form');
         productForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const productId = document.querySelector('input[placeholder="Enter Product ID"]').value;
+            const productId = document.querySelector('#productId').value;
             const product = await fetchGet(`http://185.105.91.97:8080/api/product/get/${productId}`, token);
             if (product) {
                 await fetchPost(`http://185.105.91.97:8080/api/product/create/${productId}`, token, { folder_id: folderId });
@@ -453,18 +467,33 @@ const initializeSalaryStats = (salaryTypes) => {
     const statsContainer = document.getElementById('statsContainer');
     statsContainer.innerHTML = '';
     salaryStats = salaryTypes.reduce((acc, { type }) => {
-        acc[type] = { count: 0 };
-        const statDiv = document.createElement('div');
-        statDiv.className = 'bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow';
-        statDiv.innerHTML = `
-            <div class="font-medium text-gray-600 dark:text-gray-400 flex items-center">
-                <i class="fas fa-chart-line mr-2"></i> ${type} Count
+        acc[type] = { count: 0, price: 0, gramm: 0 };
+        statsContainer.innerHTML += `
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div class="font-medium text-gray-600 dark:text-gray-400 flex items-center">
+                    ${type} Count
+                </div>
+                <div class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mt-2">
+                    <span id="stat_${type}_count">0</span>
+                </div>
             </div>
-            <div class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mt-2">
-                <span id="stat_${type}_count">0</span>
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div class="font-medium text-gray-600 dark:text-gray-400 flex items-center">
+                    ${type} Gramm
+                </div>
+                <div class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mt-2">
+                    <span id="stat_${type}_gramm">0</span>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div class="font-medium text-gray-600 dark:text-gray-400 flex items-center">
+                   ${type} Price
+                </div>
+                <div class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mt-2">
+                    <span id="stat_${type}_price">0</span>
+                </div>
             </div>
         `;
-        statsContainer.appendChild(statDiv);
         return acc;
     }, {});
 };
@@ -473,6 +502,20 @@ const updateSalaryStats = (productType) => {
     if (salaryStats[productType]) {
         salaryStats[productType].count += 1;
         document.getElementById(`stat_${productType}_count`).textContent = salaryStats[productType].count;
+    }
+};
+
+const updateSalaryStatsGramm = (productType, gramm) => {
+    if (salaryStats[productType]) {
+        salaryStats[productType].gramm += gramm;
+        document.getElementById(`stat_${productType}_gramm`).textContent = salaryStats[productType].gramm;
+    }
+};
+
+const updateSalaryStatsPrice = (productType, price) => {
+    if (salaryStats[productType]) {
+        salaryStats[productType].price += price;
+        document.getElementById(`stat_${productType}_price`).textContent = salaryStats[productType].price;
     }
 };
 
@@ -512,16 +555,19 @@ const loadCalculator = async (event) => {
             throw new Error('No product found for the given ID.');
         }
 
-        const totalCount = document.querySelector('#productTotalCount');
-        totalCount.textContent = Number(totalCount.textContent) + 1 || 0;
+        const totalCount = document.querySelector('#totalCount');
+        const totalGramm = document.querySelector('#totalGramm');
+        const totalPrice = document.querySelector('#totalPrice');
 
         const productList = document.getElementById('calculatorList');
+        let index = 1
         productId.value = ""
+
         productList.innerHTML += `
         <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start">
+                <p class="me-2">${index}.</p>
                 <div class="text-lg font-semibold text-gray-800 dark:text-gray-200">${product.title || 'N/A'}</div>
-                
             </div>
             <div class="grid grid-cols-2 gap-x-4 gap-y-1 mt-2">
                 <div class="text-sm text-gray-500 dark:text-gray-400">ID: ${product.qr_id || 'N/A'}</div>
@@ -533,7 +579,13 @@ const loadCalculator = async (event) => {
                 <div class="text-sm text-gray-500 dark:text-gray-400">Status: ${product.status || 'N/A'}</div>
             </div>
         </div>`;
+        index += 1
         updateSalaryStats(product.type);
+        updateSalaryStatsGramm(product.type, product.gramm);
+        updateSalaryStatsPrice(product.type, product.price);
+        totalCount.textContent = Number(totalCount.textContent) + 1 || 0;
+        totalGramm.textContent = (Number(totalGramm.textContent) + product.gramm).toFixed(2)
+        totalPrice.textContent = (Number(totalPrice.textContent) + product.price).toFixed(2)
     } catch (error) {
         console.error('Error loading calculator data:', error.message);
     }
@@ -619,8 +671,3 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
     }
 });
-
-function logOut() {
-    localStorage.clear(); 
-    window.location.href = 'login_page.html';
-}
