@@ -10,6 +10,17 @@
 </head>
 
 <body class="dark:bg-[#0f0f12] text-gray-800 dark:text-gray-200 min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 w-full bg-gray-800 dark:bg-gray-700 text-white p-4 flex justify-between items-center z-10 shadow-md">
+        <button onclick="openNav()" class="focus:outline-none">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+        <h1 class="text-2xl font-semibold text-center flex-1">Gold House</h1>
+        <button id="theme-toggle" class="focus:outline-none">
+            <i class="fas fa-sun text-xl dark:hidden"></i>
+            <i class="fas fa-moon hidden dark:block text-xl"></i>
+        </button>
+    </header>
     <div id="mySidenav"
         class="sidenav fixed left-0 top-0 w-64 bg-gray-800 dark:bg-gray-900 text-white h-full transform -translate-x-full transition-transform duration-300 ease-in-out z-20">
         <div class="text-2xl font-medium p-4">Menu</div>
@@ -23,55 +34,42 @@
                 class="block py-2 text-lg font-medium bg-gray-700 dark:bg-gray-800 rounded hover:bg-gray-600 transition pointer-events-none mb-2">Calculator</a>
         </div>
     </div>
-    <div id="container" class="flex-1 flex flex-col">
-        <nav
-            class="fixed top-0 w-full p-4 flex justify-between items-center bg-gray-800 dark:bg-[#0f0f12] text-white z-10 shadow-md">
-            <button onclick="openNav()" class="focus:outline-none">
-                <i class="fas fa-bars text-xl"></i>
-            </button>
-            <h1 class="text-2xl font-semibold text-center flex-1">Gold House</h1>
-            <button id="theme-toggle" class="focus:outline-none">
-                <i class="fas fa-sun text-xl dark:hidden"></i>
-                <i class="fas fa-moon hidden dark:block text-xl"></i>
-            </button>
-        </nav>
-        <main class="flex-1 pt-16 pb-20 flex flex-col items-center bg-gray-50 dark:bg-[#0f0f12]">
-            <div class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400 mt-6 text-center">Calculator
+    <main class="flex-1 pt-16 pb-20 flex flex-col items-center bg-gray-50 dark:bg-[#0f0f12]">
+        <div class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400 mt-6 text-center">Calculator
+        </div>
+        
+        <div class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">
+                Total Products: <span id="productTotalCount" class="text-indigo-600 dark:text-indigo-400">0</span>
             </div>
-            <div class="text-lg font-semibold text-gray-700 dark:text-gray-300 my-4">
-                Total Folders: <span id="productTotalCount" class="text-indigo-600 dark:text-indigo-400">0</span>
+        <div id="statsContainer"
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-4xl px-4 mb-6">
+        </div>
+        <div class="w-full max-w-4xl mx-auto px-4">
+            <form id="calculatorForm"
+                class="flex items-center rounded-lg px-4 py-3 border-2 border-gray-300 dark:border-gray-700 focus-within:border-indigo-600 dark:focus-within:border-indigo-400 bg-white dark:bg-gray-800 w-full max-w-md mx-auto mb-4">
+                <span class="text-gray-500 dark:text-gray-400 mr-3">
+                    <i class="fas fa-barcode"></i>
+                </span>
+                <input type="text" placeholder="Enter Product ID" required id="productId"
+                    class="w-full bg-transparent outline-none text-gray-800 dark:text-gray-200">
+                <span
+                    class="absolute left-4 px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 -top-2 text-xs">ID</span>
+            </form>
+            <div id="calculatorList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
             </div>
-            <div id="statsContainer"
-                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-4xl px-4 mb-6">
-                <!-- Salary stats will be inserted here -->
-            </div>
-            <div class="w-full max-w-4xl mx-auto px-4">
-                <form id="calculatorForm"
-                    class="flex items-center rounded-lg px-4 py-3 border-2 border-gray-300 dark:border-gray-700 focus-within:border-indigo-600 dark:focus-within:border-indigo-400 bg-white dark:bg-gray-800 w-full max-w-md mx-auto mb-4">
-                    <span class="text-gray-500 dark:text-gray-400 mr-3">
-                        <i class="fas fa-barcode"></i>
-                    </span>
-                    <input type="text" placeholder="Enter Product ID" required id="productId"
-                        class="w-full bg-transparent outline-none text-gray-800 dark:text-gray-200">
-                    <span
-                        class="absolute left-4 px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 -top-2 text-xs">ID</span>
-                </form>
-                <div id="calculatorList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-                </div>
-            </div>
-        </main>
-        <footer
-            class="w-full bg-gray-800 dark:bg-gray-700 text-white p-4 flex justify-around items-center z-10 shadow-inner">
-            <a href="home_page.html" class="flex flex-col items-center hover:text-indigo-400">
-                <i class="fas fa-home text-xl"></i>
-                <span>Home</span>
-            </a>
-            <a href="login_page.html" class="flex flex-col items-center hover:text-indigo-400">
-                <i class="fas fa-sign-out-alt text-xl"></i>
-                <span>Logout</span>
-            </a>
-        </footer>
-    </div>
+        </div>
+    </main>
+    <footer
+        class="w-full bg-gray-800 dark:bg-gray-700 text-white p-4 flex justify-around items-center z-10 shadow-inner">
+        <a href="home_page.html" class="flex flex-col items-center hover:text-indigo-400">
+            <i class="fas fa-home text-xl"></i>
+            <span>Home</span>
+        </a>
+        <a id="logOut" href="login_page.html" class="flex flex-col items-center hover:text-indigo-400">
+            <i class="fas fa-sign-out-alt text-xl"></i>
+            <span>Logout</span>
+        </a>
+    </footer>
     <script src="scripts.js"></script>
     <script src="./services.js"></script>
 </body>

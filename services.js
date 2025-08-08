@@ -58,20 +58,6 @@ const fetchPost = async (url, token, body) => {
     }
 };
 
-/* =============== Login Page =============== */
-
-const login = async (username, password) => {
-    const response = await fetchPost('http://185.105.91.97:8080/api/login', null, {
-        username,
-        password,
-    });
-    if (response && response.token) {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('dealer', JSON.stringify(response.user));
-        window.location.href = 'home_page.html';
-    }
-};
-
 /* =============== Login End =============== */
 
 
@@ -105,7 +91,7 @@ const loadFolders = async () => {
                         <i class="fas fa-folder text-2xl text-yellow-500"></i>
                         <div>
                             <div class="text-lg font-semibold text-gray-800 dark:text-gray-200 cursor-pointer" onclick="nextDetailPage(${folder.id})">${folder.title}</div>
-                            <div class="text-sm text-gray-500 dark:text-gray-400">${folder.created_at || 'N/A'}</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">${folder.description}</div>
                         </div>
                     </div>
                     <button class="text-red-500 hover:text-red-700" onclick="deleteFolder(${folder.id})">
@@ -314,42 +300,58 @@ const changeProductStatus = async (productId, folderId) => {
     }
 };
 
-function nextClientDetailPage(id) {
-    localStorage.setItem('clientId', id);
+function nextClientDetailPage(event) {
+    const clientElement = event.target.closest('[data-client]');
+    const client = JSON.parse(clientElement?.dataset?.client || '{}');
+    localStorage.setItem('client', JSON.stringify(client));
+    localStorage.setItem('clientId', client.id);
     window.location.href = 'client_debt_page.html';
 }
 
 const loadClients = async () => {
     const { token, userId } = getAuthData();
-    const { result } = await fetchGet(`http://185.105.91.97:8080/api/client/list/${userId}`, token);
-    const totalDebt = await fetchGet(`http://185.105.91.97:8080/api/client/total_debt/${userId}`, token);
-    if (result && totalDebt.result) {
-        const clientList = document.querySelector('#clientPage');
-        const clientCount = document.querySelector('#clientCount');
-        const totalDebtSpan = document.querySelector('#totalClientDebt');
-        clientCount.textContent = result.length;
-        totalDebtSpan.textContent = totalDebt.result || 0;
+    try {
+        const response = await fetchGet(`http://185.105.91.97:8080/api/client/list/${userId}`, token);
+        const totalDebtResponse = await fetchGet(`http://185.105.91.97:8080/api/client/total_debt/${userId}`, token);
+        const result = response?.result || [];
+        const totalDebt = totalDebtResponse?.result || 0;
 
-        clientList.innerHTML = '';
-        result.forEach(client => {
-            const clientDiv = document.createElement('div');
-            clientDiv.className = 'bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4';
-            clientDiv.innerHTML = `
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <i class="fas fa-user text-2xl text-indigo-500"></i>
-                        <div>
-                            <div class="text-lg font-semibold text-gray-800 dark:text-gray-200 cursor-pointer" onclick="nextClientDetailPage(${client.id})">${client.full_name}</div>
-                            <div class="text-sm text-gray-500 dark:text-gray-400">${client.phone_number}</div>
+        if (result.length > 0 || totalDebt !== null) {
+            const clientList = document.querySelector('#clientPage');
+            const clientCount = document.querySelector('#clientCount');
+            const totalDebtSpan = document.querySelector('#totalClientDebt');
+
+            clientCount.textContent = result.length;
+            totalDebtSpan.textContent = totalDebt;
+
+            clientList.innerHTML = '';
+            result.forEach(client => {
+                const clientDiv = document.createElement('div');
+                clientDiv.className = 'bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4';
+                clientDiv.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-user text-2xl text-indigo-500"></i>
+                            <div>
+                                <div class="text-lg font-semibold text-gray-800 dark:text-gray-200 cursor-pointer" 
+                                     data-client='${JSON.stringify(client)}' 
+                                     onclick="nextClientDetailPage(event)">${client.full_name}</div>
+                                <div class="text-sm text-gray-500 dark:text-gray-400">${client.phone_number}</div>
+                            </div>
                         </div>
+                        <button class="text-red-500 hover:text-red-700" onclick="deleteClient(${client.id})">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
                     </div>
-                    <button class="text-red-500 hover:text-red-700" onclick="deleteClient(${client.id})">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </div>
                 `;
-            clientPage.appendChild(clientDiv);
-        });
+                clientList.appendChild(clientDiv);
+            });
+        } else {
+            throw new Error('No clients or total debt data found.');
+        }
+    } catch (error) {
+        console.error('Error loading clients:', error.message);
+        alert(`An error occurred: ${error.message}. Please try again.`);
     }
 };
 
@@ -380,19 +382,20 @@ const createClient = async (event) => {
 const loadClientDebts = async () => {
     const { token } = getAuthData();
     const clientId = localStorage.getItem('clientId');
-    if (!clientId) {
+    const client = JSON.parse(localStorage.getItem('client'))
+    if (!clientId && !client) {
         window.location.href = 'client_page.html';
         return;
     }
 
     const debts = await fetchGet(`http://185.105.91.97:8080/api/client_debt/list/${clientId}`, token);
-    const client = await fetchGet(`http://185.105.91.97:8080/api/client/total_debt/${clientId}`, token);
+    // const client = await fetchGet(`http://185.105.91.97:8080/api/client/total_debt/${clientId}`, token);
     if (debts.result) {
         const fullName = document.querySelector('#fullName');
         const phoneNumber = document.querySelector('#phoneNumber');
         const totalDebt = document.querySelector('#totalDebt');
-        fullName.textContent = client?.result.full_name;
-        phoneNumber.textContent = client?.result.phone_number;
+        fullName.textContent = client?.full_name;
+        phoneNumber.textContent = client?.phone_number;
         totalDebt.textContent = debts?.result?.reduce((sum, debt) => sum + debt.lom, 0);
 
         const debtList = document.querySelector('#clientDebtPage');
@@ -510,9 +513,10 @@ const loadCalculator = async (event) => {
         }
 
         const totalCount = document.querySelector('#productTotalCount');
-        totalCount.textContent = 1; 
+        totalCount.textContent = Number(totalCount.textContent) + 1 || 0;
 
         const productList = document.getElementById('calculatorList');
+        productId.value = ""
         productList.innerHTML += `
         <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
             <div class="flex items-center justify-between">
@@ -529,14 +533,39 @@ const loadCalculator = async (event) => {
                 <div class="text-sm text-gray-500 dark:text-gray-400">Status: ${product.status || 'N/A'}</div>
             </div>
         </div>`;
-        updateSalaryStats(product.type); 
+        updateSalaryStats(product.type);
     } catch (error) {
         console.error('Error loading calculator data:', error.message);
     }
 };
 
+function logOut() {
+    localStorage.clear();
+    window.location.href = 'login_page.html';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    const path = window.location.pathname.split('/').pop();
+    const path = window.location.pathname.split('/').pop() || '';
+    const token = localStorage.getItem('token');
+    const dealer = JSON.parse(localStorage.getItem('dealer'));
+
+    if (path !== 'login_page.html') {
+        if (!token && !dealer) {
+            window.location.href = 'login_page.html';
+            return;
+        }
+    }
+
+    const logOutLink = document.getElementById('logOut');
+    if (logOutLink) {
+        logOutLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            logOut();
+        });
+    } else {
+        console.warn('Logout link not found! Check if the element with id="logOut" exists.');
+    }
+
     switch (path) {
         case 'folder_page.html':
             loadFolders();
@@ -548,7 +577,12 @@ document.addEventListener('DOMContentLoaded', () => {
             loadFolderDetailsSold();
             break;
         case 'folder_create_page.html':
-            document.querySelector('form').addEventListener('submit', createFolder);
+            const folderForm = document.querySelector('form');
+            if (folderForm) {
+                folderForm.addEventListener('submit', createFolder);
+            } else {
+                console.warn('Form not found on folder_create_page.html');
+            }
             break;
         case 'client_page.html':
             loadClients();
@@ -557,13 +591,36 @@ document.addEventListener('DOMContentLoaded', () => {
             loadClientDebts();
             break;
         case 'client_create_page.html':
-            document.querySelector('form').addEventListener('submit', createClient);
+            const clientForm = document.querySelector('form');
+            if (clientForm) {
+                clientForm.addEventListener('submit', createClient);
+            } else {
+                console.warn('Form not found on client_create_page.html');
+            }
             break;
         case 'client_debt_create_page.html':
-            document.querySelector('form').addEventListener('submit', createClientDebt);
+            const debtForm = document.querySelector('form');
+            if (debtForm) {
+                debtForm.addEventListener('submit', createClientDebt);
+            } else {
+                console.warn('Form not found on client_debt_create_page.html');
+            }
             break;
         case 'calculator_page.html':
-            document.querySelector('#calculatorForm').addEventListener('submit', loadCalculator);
+            const calculatorForm = document.querySelector('#calculatorForm');
+            if (calculatorForm) {
+                calculatorForm.addEventListener('submit', loadCalculator);
+            } else {
+                console.warn('Calculator form not found on calculator_page.html');
+            }
+            break;
+        default:
+            console.log('No specific action for this page:', path);
             break;
     }
 });
+
+function logOut() {
+    localStorage.clear(); 
+    window.location.href = 'login_page.html';
+}

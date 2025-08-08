@@ -16,6 +16,18 @@ document.addEventListener("click", function (event) {
     }
 });
 
-document.getElementById("theme-toggle").addEventListener("click", () => {
-    document.body.classList.toggle("dark");
+tailwind.config = {
+    darkMode: 'class',
+};
+
+const toggleBtn = document.getElementById('theme-toggle');
+const html = document.documentElement;
+
+if (localStorage.theme === 'dark') {
+    html.classList.add('dark');
+    html.classList.remove('light');
+}
+toggleBtn.addEventListener('click', () => {
+    const isDark = html.classList.toggle('dark');
+    localStorage.theme = isDark ? 'dark' : 'light';
 });

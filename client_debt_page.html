@@ -34,9 +34,10 @@
                 class="block py-2 text-lg font-medium bg-gray-700 dark:bg-gray-800 rounded hover:bg-gray-600 transition mb-2">Calculator</a>
         </div>
     </div>
-    <main class="flex-1 pt-16 pb-20 flex flex-col items-center bg-gray-50 dark:bg-[#0f0f12]">
-        <div class="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400 mt-6 mb-4">Client Debt Management</div>
-        <div class="w-full max-w-4xl px-4">
+    <main class="w-full h-[calc(100vh-148px)] fixed top-[64px] bg-gray-50 dark:bg-[#0f0f12] overflow-auto">
+        <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400 mt-6 mb-4 text-center">Client Debt
+            Management</div>
+        <div class="w-full max-w-4xl p-4 mx-auto">
             <div class="my-4 flex justify-end gap-4">
                 <a href="client_page.html"
                     class="bg-sky-700 text-white px-6 py-2 rounded-lg hover:bg-sky-800 transition flex items-center">
@@ -60,17 +61,17 @@
 
             </div>
             <div id="clientDebtPage"
-                class="grid grid-cols-1 md:grid-cols-2 gap-4 m-2 overflow-y-auto max-h-[calc(100vh-440px)]">
+                class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             </div>
         </div>
     </main>
     <footer
         class="fixed bottom-0 w-full bg-gray-800 dark:bg-gray-700 text-white p-4 flex justify-around items-center z-10 shadow-inner">
-        <a href="home_page.html" class="flex flex-col items-center hover:text-indigo-400">
+        <a href="index.html" class="flex flex-col items-center hover:text-indigo-400">
             <i class="fas fa-home text-xl"></i>
             <span>Home</span>
         </a>
-        <a href="login_page.html" class="flex flex-col items-center hover:text-indigo-400">
+        <a id="logOut" href="login_page.html" class="flex flex-col items-center hover:text-indigo-400">
             <i class="fas fa-sign-out-alt text-xl"></i>
             <span>Logout</span>
         </a>
